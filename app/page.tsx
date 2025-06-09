@@ -63,7 +63,7 @@ export default function ChatPage() {
     setLoadingMessages(true);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/conversations/${id}/messages`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/conversations/${id}/messages/`);
 
       if (res.status === 404) {
         console.warn("Conversation not found (404).");
