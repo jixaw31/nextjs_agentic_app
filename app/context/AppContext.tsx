@@ -60,7 +60,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   
   const fetchConversations = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/conversations`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/conversations/`);
       
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
