@@ -83,7 +83,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
     try {
       // Step 2: Create conversation if none selected
       if (!activeConversationId) {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/conversations`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/conversations/`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
