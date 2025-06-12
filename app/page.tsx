@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef } from 'react';
 import { useChat } from './context/AppContext';
 
