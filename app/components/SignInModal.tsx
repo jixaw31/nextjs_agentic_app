@@ -1,6 +1,5 @@
 "use client";
 
-import { Suspense } from 'react';
 import React, { useState, useContext } from "react";
 import { useChat } from "../context/AppContext";
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -84,7 +83,7 @@ export default function SignInModal({ isOpen, onClose,
   if (!isOpen) return null;
 
   return (
-    <Suspense>
+
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
       <div className="bg-gray-900 text-white rounded-lg p-6 w-full max-w-md shadow-xl">
         <h2 className="text-xl font-semibold mb-4">Sign In</h2>
@@ -123,6 +122,6 @@ export default function SignInModal({ isOpen, onClose,
         </form>
       </div>
     </div>
-  </Suspense>
+  
   );
 }
