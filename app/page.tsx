@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect, useRef, useState } from 'react';
 import Sidebar from './components/Sidebar';
 import GlassyFooter from './components/GlassyStickyBottom';
