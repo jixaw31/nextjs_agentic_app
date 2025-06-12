@@ -1,9 +1,15 @@
+// "use client";
+// import { useSession, signIn } from "next-auth/react";
 
 export default function Rag() {
-  return (
-    <div className="flex items-center justify-center h-screen">
-      
-      <h1 className="text-4xl font-bold">RAG</h1>
-    </div>
-  );
+  // const { data: session, status } = useSession();
+  // if (status === "loading") return <p>Loading...</p>;
+
+  // if (!session) {
+  //   signIn(); // Redirect to sign-in page
+  //   return null;
+  // }
+
+  // // Use session.accessToken to call protected FastAPI endpoints
+  return <div><h1>RAG</h1></div>;
 }

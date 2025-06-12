@@ -1,8 +1,12 @@
+
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from './components/Navbar';
 import { ChatProvider } from './context/AppContext';
+import { SessionProvider } from "next-auth/react";
+import SignupModal from "./components/SignUpModal";
+
 // import { Merriweather, Inter } from 'next/font/google';
 
 
@@ -70,10 +74,14 @@ export default function RootLayout({
       <body 
         className={`${inter.variable} ${merriweather.variable} antialiased`}
       >
+        
+        
         <ChatProvider>
         <Navbar />
         {children}
         </ChatProvider>
+        
+        
         
       </body>
     </html>

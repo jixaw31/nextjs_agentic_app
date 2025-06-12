@@ -52,82 +52,87 @@ const ChatInput: React.FC<ChatInputProps> = ({
     inputRef.current?.focus();
   }, []);
 
-
-  const today = new Date().toLocaleDateString('en-US', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-
-
   const sendMessage = async () => {
-    console.log('API URL:', process.env.NEXT_PUBLIC_API_BASE_URL);
-    if (!input.trim()) return;
+  if (!input.trim()) return;
 
-    setSpinnerLoading(true);
+  setSpinnerLoading(true);
 
-    // Step 1: Optimistically display the human message immediately
-    const userMessage: Message = {
-      id: crypto.randomUUID(),
-      content: input,
-      type: 'human',
-    };
-    setMessages(prev => [...prev, userMessage]);
+  const userStr = localStorage.getItem("user");
 
-    let activeConversationId = conversationId;
-    const firstFiveWords = input.trim().split(/\s+/).slice(0, 5).join(' ');
-    const currentInput = input;
-    setInput(''); // Clear input early for snappy UX
-    
-    try {
-      // Step 2: Create conversation if none selected
-      if (!activeConversationId) {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/conversations/`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            agent_id: 'ffa1cca1-54f3-4cf5-82dc-5c549ce3f81f',
-            title: firstFiveWords,
-          }),
-        });
+  if (!userStr) {
+    console.error("User not found in localStorage");
+    setSpinnerLoading(false);
+    return;
+  }
 
-        if (!res.ok) throw new Error('Failed to create conversation');
+  const user = JSON.parse(userStr);
+  const userId = user.id;
 
-        const newConv = await res.json();
-        activeConversationId = newConv.id;
+  const userMessage: Message = {
+    id: crypto.randomUUID(),
+    content: input,
+    type: 'human',
+  };
+  setMessages(prev => [...prev, userMessage]);
 
-        setConversationId(newConv.id);
-        sessionStorage.setItem("activeConversationId", newConv.id);
-        // setConversations(prev => [...prev, newConv]);
-        await fetchConversations();
-      }
+  let activeConversationId = conversationId;
+  const firstFiveWords = input.trim().split(/\s+/).slice(0, 5).join(' ');
+  const currentInput = input;
+  setInput(''); // Clear input early for snappy UX
 
-      // Step 3: Send message to backend `${process.env.NEXT_PUBLIC_API_URL}/conversations`
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/conversations/${activeConversationId}/message`, {
+  try {
+    // 🧠 STEP 1: Always create a new conversation if none is active
+    if (!activeConversationId) {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/conversations`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: currentInput }),
+        body: JSON.stringify({
+          title: firstFiveWords,
+          user_id: userId,
+        }),
       });
 
-      if (!res.ok) throw new Error(`Failed with status ${res.status}`);
+      if (!res.ok) throw new Error('Failed to create conversation');
 
-      const data = await res.json();
-      const botMessage: Message = {
-        content: Array.isArray(data.assistant) ? data.assistant[0] : "❌ Connection issue: the model or endpoint was not found. Please try again later.",
-        type: 'ai',
-        id: crypto.randomUUID(),
-      };
-
-      setMessages(prev => [...prev, botMessage]);
-      setHasSentMessage(true);
-
-    } catch (err) {
-      console.error('Error during message sending:', err);
-    } finally {
-      setSpinnerLoading(false);
+      const newConv = await res.json();
+      activeConversationId = newConv.id;
+      setConversationId(newConv.id);
+      localStorage.setItem("activeConversationId", newConv.id);
+      await fetchConversations(); // optional: refresh sidebar
     }
-  };
+
+    // 🧠 STEP 2: Send message to the correct conversation
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/conversations/${activeConversationId}/message`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        text: currentInput,
+        user_id: userId,
+      }),
+    });
+
+    if (!res.ok) throw new Error(`Failed to send message (HTTP ${res.status})`);
+
+    const data = await res.json();
+
+    const botMessage: Message = {
+      content: Array.isArray(data.assistant)
+        ? data.assistant[0]
+        : "❌ Connection issue: the model or endpoint was not found. Please try again later.",
+      type: 'ai',
+      id: crypto.randomUUID(),
+    };
+
+    setMessages(prev => [...prev, botMessage]);
+    setHasSentMessage(true);
+  } catch (err) {
+    console.error('Error during message sending:', err);
+  } finally {
+    setSpinnerLoading(false);
+  }
+};
+
+
 
 
   useEffect(() => {

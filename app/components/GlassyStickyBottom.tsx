@@ -9,7 +9,7 @@ const GlassyFooter = () => {
         bg-blue-300/20 transition-all duration-300
         ${isMinimized ? 'pl-4' : 'pl-[18%]'}`}
     >
-      <p className="absolute left-1/2 transform -translate-x-1/2 text-white text-sm">Some dynamic wisdom message will be displayed here.</p>
+      <p className="absolute left-1/2 transform -translate-x-1/2 text-white text-sm">Some wisdom message will be displayed here.</p>
     </div>
   );
 };
