@@ -1,6 +1,3 @@
-"use client";
-
-import { useRef } from 'react';
 import { useChat } from './context/AppContext';
 
 export default function ChatPage() {
