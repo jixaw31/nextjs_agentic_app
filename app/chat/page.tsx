@@ -1,6 +1,5 @@
 'use client';
 
-import { Suspense } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import GlassyFooter from '../components/GlassyStickyBottom';
@@ -50,7 +49,7 @@ export default function ChatPage() {
             conversations,
             loadingMessages, spinnerLoading,
             fetchConversations, isMinimized,
-            showAuthMessage, authMessage, fadeOut} = useChat();
+          showAuthMessage, authMessage, fadeOut} = useChat();
   
 
   // Start a new conversation
@@ -130,7 +129,6 @@ export default function ChatPage() {
   }, [messages]);
 
   return (
-    <Suspense fallback={<div>Loading…</div>}>
     <ProtectedRoute>
     <div className="min-h-screen flex text-white">
       
@@ -212,12 +210,12 @@ export default function ChatPage() {
               {authMessage}
             </div>
           )}
-        {/* Centered content */} 
+
+          {/* Centered content */}
         <GlassyFooter />
       </div>
       
     </div>
     </ProtectedRoute>
-    </Suspense>
   );
 }
