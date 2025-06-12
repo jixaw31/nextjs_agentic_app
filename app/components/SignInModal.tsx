@@ -1,8 +1,10 @@
-"use client";
+"use client"
 
 import React, { useState, useContext } from "react";
 import { useChat } from "../context/AppContext";
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, 
+  // useSearchParams
+ } from 'next/navigation';
 
 interface SignInModalProps {
   isOpen: boolean;
@@ -15,9 +17,9 @@ export default function SignInModal({ isOpen, onClose,
      onLogin
      }: SignInModalProps) {
 
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   const router = useRouter();
-  const redirectPath = searchParams.get('redirect') || '/';
+  // const redirectPath = searchParams.get('redirect') || '/';
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const { login,
@@ -47,7 +49,7 @@ export default function SignInModal({ isOpen, onClose,
       const data = await res.json();
       // 👇 Call `login()` to save user and token in context + localStorage
       login({ id: data.id, user_name: data.user_name }, data.access_token);
-      router.push(redirectPath);
+      router.push("/chat");
       // router.replace(redirectPath);
       setAuthMessage("Signed in successfully!");
       setShowAuthMessage(true);
@@ -83,7 +85,7 @@ export default function SignInModal({ isOpen, onClose,
   if (!isOpen) return null;
 
   return (
-
+    
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
       <div className="bg-gray-900 text-white rounded-lg p-6 w-full max-w-md shadow-xl">
         <h2 className="text-xl font-semibold mb-4">Sign In</h2>
@@ -122,6 +124,6 @@ export default function SignInModal({ isOpen, onClose,
         </form>
       </div>
     </div>
-  
+   
   );
 }
