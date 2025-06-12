@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useContext } from "react";
 import { useChat } from "../context/AppContext";
 import { useRouter, useSearchParams } from 'next/navigation';
