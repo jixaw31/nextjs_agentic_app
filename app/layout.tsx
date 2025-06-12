@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -75,12 +74,12 @@ export default function RootLayout({
         className={`${inter.variable} ${merriweather.variable} antialiased`}
       >
         
-        <Suspense>
+        
         <ChatProvider>
         <Navbar />
         {children}
         </ChatProvider>
-        </Suspense>
+       
         
         
       </body>
