@@ -79,7 +79,6 @@ export default function SignInModal({ isOpen, onClose,
 
   const handleCancel = () => {
     if (onClose) onClose();
-    router.push('/'); // Navigate to landing page
   };
 
   if (!isOpen) return null;
@@ -109,7 +108,9 @@ export default function SignInModal({ isOpen, onClose,
           <div className="flex justify-end gap-2">
             <button
               type="button"
-              onClick={handleCancel}
+              onClick={()=>{handleCancel();
+                            router.push("/")
+                      }}
               className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600"
             >
               Cancel
