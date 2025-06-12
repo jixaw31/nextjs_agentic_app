@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useEffect, useState, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
@@ -74,6 +75,7 @@ export default function Navbar() {
 
         {/* Right side: Username */}
         <div className="text-sm mr-10 h-full flex items-center p-1">
+         
           {!user ? (
             <>
               <button
@@ -106,16 +108,17 @@ export default function Navbar() {
           )}
         </div>
       </div>
-
-      <SignInModal
-        isOpen={showSignIn}
-        onClose={() => setShowSignIn(false)}
-        onLogin={(loggedInUser) => {
-          saveUserToStorage(loggedInUser);
-          setShowSignIn(false);
-        }}
-      />
-      <SignupModal isOpen={showSignup} onClose={() => setShowSignup(false)} />
+      <Suspense fallback={<div>Loading…</div>}>
+        <SignInModal
+          isOpen={showSignIn}
+          onClose={() => setShowSignIn(false)}
+          onLogin={(loggedInUser) => {
+            saveUserToStorage(loggedInUser);
+            setShowSignIn(false);
+          }}
+        />
+        <SignupModal isOpen={showSignup} onClose={() => setShowSignup(false)} />
+       </Suspense>
     </nav>
   );
 }
