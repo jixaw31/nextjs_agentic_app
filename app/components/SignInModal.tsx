@@ -3,7 +3,7 @@
 import React, { useState, useContext } from "react";
 import { useChat } from "../context/AppContext";
 import { useRouter, 
-  // useSearchParams
+  useSearchParams
  } from 'next/navigation';
 
 interface SignInModalProps {
@@ -17,9 +17,9 @@ export default function SignInModal({ isOpen, onClose,
      onLogin
      }: SignInModalProps) {
 
-  // const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
   const router = useRouter();
-  // const redirectPath = searchParams.get('redirect') || '/';
+  const redirectPath = searchParams.get('redirect') || '/404';
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const { login,
@@ -50,7 +50,7 @@ export default function SignInModal({ isOpen, onClose,
       // 👇 Call `login()` to save user and token in context + localStorage
       login({ id: data.id, user_name: data.user_name }, data.access_token);
       router.push("/chat");
-      // router.replace(redirectPath);
+      router.replace(redirectPath);
       setAuthMessage("Signed in successfully!");
       setShowAuthMessage(true);
       setFadeOut(false); // make sure it's fully visible
@@ -110,7 +110,7 @@ export default function SignInModal({ isOpen, onClose,
               type="button"
               onClick={()=>{handleCancel();
                             router.push("/")
-                      }}
+              }}
               className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600"
             >
               Cancel

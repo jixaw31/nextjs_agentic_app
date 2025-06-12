@@ -1,50 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
-import Sidebar from './components/Sidebar';
-import GlassyFooter from './components/GlassyStickyBottom';
-import ChatInput from './components/ChatInput';
+import { useRef } from 'react';
 import { useChat } from './context/AppContext';
-import ProtectedRoute from './components/ProtectedRoute';
-import { div } from 'framer-motion/client';
-
-// import type { Message } from './types'; // Assume Message is exported from a shared types file
-
-
-// interface Message {
-//   id: string;
-//   content: string;
-//   type: "human" | "ai";
-// }
-
-// interface ChatInputProps {
-//   input: string;
-//   setInput: (val: string) => void;
-//   messages: Message[];
-//   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
-//   conversationId: string | null;
-//   setConversationId: React.Dispatch<React.SetStateAction<string | null>>;
-//   conversations: {
-//     id: string;
-//     agent_id: string;
-//     title: string;
-//   }[];
-//   setConversations: React.Dispatch<
-//     React.SetStateAction<{id: string; agent_id: string; title: string;}[]>>;
-
-//   setSpinnerLoading: React.Dispatch<React.SetStateAction<boolean>>;
-// }
-
 
 export default function ChatPage() {
-
-  const inputRef = useRef<HTMLTextAreaElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const bottomRef = useRef<HTMLDivElement>(null);
 
   const {authMessage, showAuthMessage,
         fadeOut} = useChat();
 
 
   return (
+    
   <div className="relative h-screen flex items-center justify-center">
     {/* Top-right message */}
     {showAuthMessage && (
