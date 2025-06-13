@@ -1,12 +1,4 @@
-
-
-import { useChat } from './context/AppContext';
-
 export default function ChatPage() {
-
-  const {authMessage, showAuthMessage,
-        fadeOut} = useChat();
-
 
   return (
     
