@@ -129,7 +129,7 @@ export default function ChatPage() {
   }, [messages]);
 
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
     <ProtectedRoute>
     <div className="min-h-screen flex text-white">
       
