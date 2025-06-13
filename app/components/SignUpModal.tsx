@@ -23,7 +23,7 @@ export default function SignupModal({ isOpen, onClose, onSignup }: Props) {
     };
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/auth/create-user", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/sign-in`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,7 +39,7 @@ export default function SignupModal({ isOpen, onClose, onSignup }: Props) {
       const user = await res.json();
 
       // Optional: auto-login right after signup
-      const loginRes = await fetch("http://127.0.0.1:8000/auth/sign-in", {
+      const loginRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/sign-in`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
