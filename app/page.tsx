@@ -1,8 +1,9 @@
 "use client";
-import { useChat } from '../context/AppContext';
+
+import { useChat } from './context/AppContext';
 
 export default function ChatPage() {
-  const { showAuthMessage, authMessage, fadeOut } = useChat();
+  const { showAuthMessage, authMessage, fadeOut} = useChat();
   return (
     
   <div className="relative h-screen flex items-center justify-center">
