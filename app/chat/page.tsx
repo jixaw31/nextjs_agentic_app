@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import GlassyFooter from '../components/GlassyStickyBottom';
 import ChatInput from '../components/ChatInput';
@@ -129,6 +129,7 @@ export default function ChatPage() {
   }, [messages]);
 
   return (
+    <Suspense>
     <ProtectedRoute>
     <div className="min-h-screen flex text-white">
       
@@ -217,5 +218,6 @@ export default function ChatPage() {
       
     </div>
     </ProtectedRoute>
+    </Suspense>
   );
 }
