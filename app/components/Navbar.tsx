@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from "react";
 import { useEffect, useState, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
@@ -54,6 +55,7 @@ export default function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 bg-gray-800 h-14 text-white">
+      <Suspense fallback={<div>Loading...</div>}></Suspense>
       <div className="flex items-center justify-between h-full px-4">
         {/* Left (placeholder if needed) */}
         <div />
@@ -116,6 +118,7 @@ export default function Navbar() {
         }}
       />
       <SignupModal isOpen={showSignup} onClose={() => setShowSignup(false)} />
+    </Suspense>
     </nav>
   );
 }
