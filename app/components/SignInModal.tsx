@@ -33,7 +33,7 @@ export default function SignInModal({ isOpen, onClose,
     const payload = { user_name: userName, password };
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/auth/sign-in", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/sign-in`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
