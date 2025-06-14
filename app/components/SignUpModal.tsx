@@ -22,7 +22,7 @@ export default function SignupModal({ isOpen, onClose, onSignup }: Props) {
       email: email || undefined,
     };
 
-    try {
+    try { // updated
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/create-user`, {
         method: "POST",
         headers: {
