@@ -23,7 +23,7 @@ export default function SignupModal({ isOpen, onClose, onSignup }: Props) {
     };
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/sign-in`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/create-user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
